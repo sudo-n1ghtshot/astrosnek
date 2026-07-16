@@ -1,0 +1,7 @@
+numpy
+astropy
+photutils
+matplotlib
+rawpy
+scipy
+pillow
