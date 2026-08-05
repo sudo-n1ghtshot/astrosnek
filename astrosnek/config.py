@@ -44,13 +44,12 @@ REQUIRED_DIRS = [
 directories_created = False
 
 def ensure_directories():
+    directories_created = False
     for directory in REQUIRED_DIRS:
         if not os.path.exists(directory):
             os.makedirs(directory)
+            print(f"Created directory: {directory}")
             directories_created = True
-            print(
-                f"Created directory: {directory}"
-            )
 
     if directories_created:
         print("\n=============================")
