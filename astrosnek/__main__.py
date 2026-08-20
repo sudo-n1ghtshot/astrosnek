@@ -1,3 +1,4 @@
+import argparse
 from astrosnek.pipeline import Pipeline
 from astrosnek.config import (
     BASE_DIR,
@@ -10,7 +11,7 @@ from astrosnek.config import (
 )
 
 def main():
-
+    args = parse_arguments()
     ensure_directories()
 
     print("\n=============================")
@@ -24,7 +25,27 @@ def main():
     print("=============================\n")
 
     config = load_or_create_config()
+    if args.viewer is not None:
+        viewer_modes = {
+            "every": 1,
+            "best": 2,
+            "none": 3,
+        }
+        config["viewer_mode"] = viewer_modes[args.viewer]
     Pipeline(config).run()
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        description="Astrosnek astronomical image pipeline"
+    )
+
+    parser.add_argument(
+        "--viewer",
+        choices=["every", "best", "none"],
+        help="Viewer mode for this run."
+    )
+
+    return parser.parse_args()
 
 if __name__ == "__main__":
     main()

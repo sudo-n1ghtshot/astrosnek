@@ -26,6 +26,10 @@ RESULTS_DIR = os.path.join(
     BASE_DIR,
     "Analysis_results"
 )
+VIEWER_DIR = os.path.join(
+    RESULTS_DIR,
+    "viewer"
+)
 CONFIG_FILE = os.path.join(
     BASE_DIR,
     "config.json"
@@ -38,7 +42,8 @@ REQUIRED_DIRS = [
     RAW_DIR,
     FITS_DIR,
     STACKED_DIR,
-    RESULTS_DIR
+    RESULTS_DIR,
+    VIEWER_DIR
 ]
 
 directories_created = False

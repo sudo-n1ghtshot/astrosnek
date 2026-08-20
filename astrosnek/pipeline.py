@@ -9,6 +9,7 @@ from astrosnek.config import (
     RAW_DIR,
     FITS_DIR,
     RESULTS_DIR,
+    VIEWER_DIR,
     wait_for_raw_files,
 )
 
@@ -66,7 +67,15 @@ class Pipeline:
         }
         self.save_analysis_result(result)
         if self.config["viewer_mode"] == 1:
-            inspect_and_plot_fits(fits_file)
+            viewer_file = os.path.join(
+                VIEWER_DIR,
+                base + ".png"
+            )
+            inspect_and_plot_fits(
+                fits_file,
+                output_path=viewer_file,
+                show=True
+            )
         return result
 
     def run(self):
