@@ -16,7 +16,7 @@ class Pipeline:
     def __init__(self, config):
         self.config = config
         self.logger = get_logger()
-        
+
     def save_analysis_result(self, result):
         filename = (
             os.path.splitext(
@@ -44,8 +44,10 @@ class Pipeline:
             FITS_DIR,
             base + ".fits"
         )
-        print(f"\nSTARTING PIPELINE FOR: {arw_filename}")
-
+        self.logger.info(
+            f"Starting pipeline for: {arw_filename}"
+        )
+        
         if os.path.exists(fits_file):
             self.logger.info(
                 "FITS exists, skipping conversion."
@@ -80,14 +82,15 @@ class Pipeline:
             results,
             key=lambda x: x["quality_score"]
         )
-        print("\n=============================")
-        print("PIPELINE COMPLETE")
-        print("=============================")
-        print(f"Best Frame: {best_frame['file']}")
-        print(f"Stars detected: {best_frame['stars_detected']}")
-        print(
+        self.logger.info("Pipeline complete")
+        self.logger.info(
+            f"Best Frame: {best_frame['file']}"
+        )
+        self.logger.info(
+            f"Stars detected: {best_frame['stars_detected']}"
+        )
+        self.logger.info(
             f"Quality score: {best_frame['quality_score']:.3f}"
         )
-        print("=============================")
         if self.config["viewer_mode"] == 2:
             inspect_and_plot_fits(best_frame["file"])
