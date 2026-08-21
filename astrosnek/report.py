@@ -1,13 +1,13 @@
 import os
 import json
-
-RESULTS_DIR = r"\\10.0.0.28\Dumpster\Python\Astro\Analysis-results"
+from astrosnek.config import RESULTS_DIR
 
 def load_results():
     """
     Loads all JSON analysis files from the results folder.
     """
     results = []
+
     for filename in os.listdir(RESULTS_DIR):
         if filename.endswith(".json"):
             filepath = os.path.join(
@@ -18,6 +18,7 @@ def load_results():
                 data = json.load(f)
             results.append(data)
     return results
+
 def print_report(results):
     """
     Prints a ranked quality report.
@@ -25,7 +26,6 @@ def print_report(results):
     if not results:
         print("No analysis files found.")
         return
-    # Rank by quality score
     results.sort(
         key=lambda x: x["quality_score"],
         reverse=True
@@ -42,7 +42,6 @@ def print_report(results):
         f"{'Score':<12}"
     )
     print("-" * 70)
-
     for index, frame in enumerate(results, start=1):
         filename = os.path.basename(
             frame["file"]
@@ -55,7 +54,6 @@ def print_report(results):
             f"{frame['median_sharpness']:<12.3f}"
             f"{frame['quality_score']:<12.3f}"
         )
-    # Best frame summary
     best = results[0]
 
     print("\n=============================")

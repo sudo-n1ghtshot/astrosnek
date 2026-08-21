@@ -1,6 +1,7 @@
 import os
 import json
 
+from astrosnek.report import load_results, print_report
 from astrosnek.logger import get_logger
 from astrosnek.converter import convert_arw_to_fits
 from astrosnek.counter import count_sharp_stars
@@ -103,3 +104,6 @@ class Pipeline:
         )
         if self.config["viewer_mode"] == 2:
             inspect_and_plot_fits(best_frame["file"])
+
+        report_results = load_results()
+        print_report(report_results)
